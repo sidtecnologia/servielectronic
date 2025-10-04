@@ -181,6 +181,7 @@
                         <a href="#servicios" class="hover:text-red-500 transition duration-150 font-medium">Servicios</a>
                         <a href="#confianza" class="hover:text-red-500 transition duration-150 font-medium">Confianza</a>
                         <a href="#contacto" class="hover:text-red-500 transition duration-150 font-medium">Contacto</a>
+                        <a href="#ubicacion-mapa" class="hover:text-red-500 transition duration-150 font-medium">Contacto</a>
                         <a href="tel:+573135996097" class="ml-4 px-4 py-2 bg-red-500 rounded-full font-semibold hover:bg-red-600 transition duration-150 flex items-center">
                             <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Llámanos
                         </a>
@@ -202,6 +203,7 @@
                 <a href="#servicios" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Servicios</a>
                 <a href="#confianza" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Confianza</a>
                 <a href="#contacto" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Contacto</a>
+                <a href="#ubicacion-mapa" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Ubicación</a>
                 <a href="tel:+573135996097" class="block px-3 py-2 rounded-md text-base font-medium bg-red-500 hover:bg-red-600 mt-2 text-center">Llámanos Ahora</a>
             </div>
         </div>
@@ -215,7 +217,7 @@
 
         <!-- Contenido principal y CTA -->
         <div class="relative z-10 max-w-3xl text-center px-6">
-            <h1 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight mb-4 pt-6 animated-element delay-200">
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight mb-4 pt-8 animated-element delay-200">
                 <p><span class="text-red-500">Servicio Técnico para <span id="dynamic-text" class="text-red-500 inline-block font-bold"> electrodoméstico</span></p><p>
                 ¡Con nosotros su electrodoméstico vuelve a la Vida Hoy Mismo!</p>
             </h1>
@@ -412,6 +414,30 @@
             </a>
         </div>
     </div>
+
+
+
+        <!-- NUEVA SECCIÓN: Ubicación en Google Maps -->
+        <section id="ubicacion-mapa" class="bg-white py-12 sm:py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8 animated-element">
+                    <h2 class="text-3xl font-extrabold text-gray-900">
+                        Visítanos en Nuestro Taller Central
+                    </h2>
+                    <p class="mt-2 text-lg text-gray-600">
+                        Estamos ubicados estratégicamente para dar servicio a todo el Eje Cafetero.
+                    </p>
+                </div>
+                <!-- Contenedor del Iframe de Google Maps (Responsive) -->
+                <div class="shadow-2xl rounded-xl overflow-hidden animated-element delay-200" style="height: 500px; width: 100%;">
+                    <!-- COMENTARIO IMPORTANTE: Reemplace este iframe con la URL de "Compartir e insertar mapa" de su negocio en Google Maps. 
+                        Actualmente está configurado con un centro en Pereira. -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15915.226760548177!2d-75.69805908235791!3d4.809460592984918!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e39029a8f4c28f9%3A0x6b49e083c6b2b7a9!2sPereira%2C%20Risaralda%2C%20Colombia!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </section>
 
 
     <!-- Footer y Redes Sociales -->
