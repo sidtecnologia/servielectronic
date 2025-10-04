@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Servicio Técnico a Domicilio | SERVIELECTRONIC</title>
+    
+    <meta name="description" content="Servicio técnico profesional de electrodomésticos a domicilio en Pereira, Dosquebradas y Cartago. Reparación de neveras, lavadoras, calentadores con garantía de 90 días. ¡Solución inmediata!">
+    
+    <meta name="keywords" content="servicio tecnico a domicilio, reparacion neveras, reparacion lavadoras, eje cafetero, pereira, dosquebradas, cartago, servicio tecnico electrodomesticos">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #EF4444; /* Rojo principal */
+            --secondary-color: #1F2937; /* Gris oscuro para fondos */
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f8f8;
+            scroll-behavior: smooth;
+        }
+        /* Navbar Fijo y Transparente */
+        .sticky-navbar {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            background-color: rgba(31, 41, 55, 0.9);
+            z-index: 50;
+        }
+
+        /* Hero (Espacio para el video) */
+        .hero-video-container {
+            position: relative;
+            height: 100vh;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: var(--secondary-color);
+        }
+
+        /* Estilos CRÍTICOS para que el video no desplace el contenido */
+        #video-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0; /* Colocar detrás del overlay */
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        /* Overlay oscuro para que el texto resalte */
+        .hero-video-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9));
+            z-index: 1;
+        }
+
+        /* ------------------------------------- */
+        /* CARRUSEL DE SERVICIOS Y TESTIMONIOS */
+        /* ------------------------------------- */
+
+        .carousel-container, .testimonials-carousel-container {
+            overflow: hidden;
+            touch-action: pan-y;
+        }
+        .carousel-track {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+        }
+        .carousel-item {
+            flex: 0 0 100%;
+            min-width: 300px;
+            cursor: pointer;
+        }
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .testimonial-item {
+            flex: 0 0 100%;
+            min-width: 100%;
+            padding: 1rem; /* Espacio entre tarjetas */
+        }
+        
+        /* ------------------------------------- */
+        /* ANIMACIONES AL SCROLL (Custom AOS) */
+        /* ------------------------------------- */
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animated-element {
+            opacity: 0;
+            /* Usamos opacity/transform por defecto para evitar FOUT */
+        }
+        .animated-element.in-view {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        /* Clases de Retraso */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+        
+        /* Botón Flotante de WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: white;
+            padding: 1rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+            z-index: 100;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+        /* Estilos para el Modal */
+        .modal {
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+        }
+
+        /* ------------------------------------- */
+        /* EFECTO MAQUINA DE ESCRIBIR */
+        /* ------------------------------------- */
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 0.7s infinite step-end;
+            margin-left: 2px;
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body class="text-gray-900">
+
+    <!-- Navbar Fija -->
+    <nav id="navbar" class="sticky-navbar fixed top-0 w-full transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <a href="#hero" class="flex-shrink-0 text-2xl font-bold text-white tracking-wider animated-element delay-100">
+                    <span class="text-red-500">SERVI</span>ELECTRONIC
+                </a>
+
+                <!-- Menú Desktop -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-6 text-white animated-element delay-200">
+                        <a href="#servicios" class="hover:text-red-500 transition duration-150 font-medium">Servicios</a>
+                        <a href="#confianza" class="hover:text-red-500 transition duration-150 font-medium">Confianza</a>
+                        <a href="#contacto" class="hover:text-red-500 transition duration-150 font-medium">Contacto</a>
+                        <a href="tel:+573135996097" class="ml-4 px-4 py-2 bg-red-500 rounded-full font-semibold hover:bg-red-600 transition duration-150 flex items-center">
+                            <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Llámanos
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Botón Hamburguesa (Móvil) -->
+                <div class="-mr-2 flex md:hidden">
+                    <button id="menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <i id="menu-icon" data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Móvil Desplegable -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-white">
+                <a href="#servicios" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Servicios</a>
+                <a href="#confianza" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Confianza</a>
+                <a href="#contacto" class="block px-3 py-2 rounded-md text-base font-medium hover:bg-gray-700">Contacto</a>
+                <a href="tel:+573135996097" class="block px-3 py-2 rounded-md text-base font-medium bg-red-500 hover:bg-red-600 mt-2 text-center">Llámanos Ahora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección Hero (Fondo de Video) -->
+    <header id="hero" class="hero-video-container">
+        <video id="video-background" autoplay loop muted poster="placeholder-image.jpg">
+            <source src="videoplayback.mp4" type="video/mp4">
+        </video>
+
+        <!-- Contenido principal y CTA -->
+        <div class="relative z-10 max-w-3xl text-center px-6">
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight mb-4 pt-6 animated-element delay-200">
+                <p><span class="text-red-500">Servicio Técnico para <span id="dynamic-text" class="text-red-500 inline-block font-bold"> electrodoméstico</span></p><p>
+                ¡Con nosotros su electrodoméstico vuelve a la Vida Hoy Mismo!</p>
+            </h1>
+            <p class="text-lg sm:text-xl text-gray-300 mb-8 max-w-2xl mx-auto animated-element delay-300">
+                Deje de preocuparse. Le damos el diagnostico en menos de 1 hora, además de una garantía mínima de 90 días.
+            </p>
+            <a href="#contacto" class="inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-bold rounded-full shadow-lg text-white bg-red-500 hover:bg-red-600 transition duration-300 uppercase tracking-wider transform hover:scale-105 animated-element delay-400">
+                <i data-lucide="wrench" class="w-5 h-5 mr-3"></i>
+                Pedir Solución
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Sección de Carrusel de Servicios -->
+        <section id="servicios" class="py-16 sm:py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 animated-element">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">
+                        No Vendemos Servicios, Solucionamos su Problema
+                    </h2>
+                    <p class="mt-4 text-xl text-gray-600">
+                        Haga clic en su equipo dañado para ver cómo podemos ayudarle.
+                    </p>
+                </div>
+
+                <div class="carousel-container relative">
+                    <!-- Botones de navegación (Desktop) -->
+                    <button id="prev-btn" class="animated-element absolute left-0 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white p-3 rounded-full shadow-lg hidden md:block z-10 opacity-70 hover:opacity-100 transition">
+                        <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                    </button>
+                    <button id="next-btn" class="animated-element absolute right-0 top-1/2 transform -translate-y-1/2 bg-gray-900 text-white p-3 rounded-full shadow-lg hidden md:block z-10 opacity-70 hover:opacity-100 transition">
+                        <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                    </button>
+
+                    <!-- Pista del Carrusel (Swipeable) -->
+                    <div id="carousel-track" class="carousel-track">
+                        <!-- Elementos del Carrusel (Se repite en el JS para auto-scroll infinito) -->
+                        <div class="carousel-item p-4 animated-element delay-100" data-service-id="nevera">
+                            <div class="bg-gray-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-red-500 flex flex-col items-center text-center">
+                                <i data-lucide="snowflake" class="w-12 h-12 text-red-500 mb-4"></i>
+                                <h3 class="text-xl font-bold mb-2">Neveras y Nevecones</h3>
+                                <img src="assets/img/nevera.webp" alt="Reparación de Neveras" class="w-full h-32 object-cover rounded-lg my-3">
+                                <p class="text-gray-600 text-sm">¿Ya no enfría? ¿Fuga de gas? Deje sus alimentos seguros.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item p-4 animated-element delay-200" data-service-id="lavadora">
+                            <div class="bg-gray-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-blue-500 flex flex-col items-center text-center">
+                                <i data-lucide="washing-machine" class="w-12 h-12 text-blue-500 mb-4"></i>
+                                <h3 class="text-xl font-bold mb-2">Lavadoras y Secadoras</h3>
+                                <img src="assets/img/lavadora.webp" alt="Reparación de Lavadoras" class="w-full h-32 object-cover rounded-lg my-3">
+                                <p class="text-gray-600 text-sm">¿No centrifuga o bota agua? Ropa limpia sin estrés.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item p-4 animated-element delay-300" data-service-id="calentador">
+                            <div class="bg-gray-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-yellow-500 flex flex-col items-center text-center">
+                                <i data-lucide="flame" class="w-12 h-12 text-yellow-500 mb-4"></i>
+                                <h3 class="text-xl font-bold mb-2">Calentadores de Agua</h3>
+                                <img src="assets/img/calentador.jpg" alt="Reparación de Calentadores" class="w-full h-32 object-cover rounded-lg my-3">
+                                <p class="text-gray-600 text-sm">¿No hay agua caliente? Soluciones seguras y rápidas.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item p-4 animated-element delay-400" data-service-id="aire">
+                            <div class="bg-gray-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-green-500 flex flex-col items-center text-center">
+                                <i data-lucide="wind" class="w-12 h-12 text-green-500 mb-4"></i>
+                                <h3 class="text-xl font-bold mb-2">Aire Acondicionado</h3>
+                                <img src="assets/img/aire.avif" alt="Reparación de Aires Acondicionados" class="w-full h-32 object-cover rounded-lg my-3">
+                                <p class="text-gray-600 text-sm">Mantenimiento e instalación para un ambiente fresco.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item p-4 animated-element delay-500" data-service-id="horno">
+                            <div class="bg-gray-100 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-purple-500 flex flex-col items-center text-center">
+                                <i data-lucide="cooking-pot" class="w-12 h-12 text-purple-500 mb-4"></i>
+                                <h3 class="text-xl font-bold mb-2">Hornos y Estufas</h3>
+                                <img src="assets/img/horno.jpg" alt="Reparación de Hornos" class="w-full h-32 object-cover rounded-lg my-3">
+                                <p class="text-gray-600 text-sm">Si no calienta, lo reparamos para que siga cocinando sin problemas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="dots" class="flex justify-center mt-6 space-x-2"></div>
+            </div>
+        </section>
+
+        <!-- Sección de Confianza / Autoridad y Testimonios con Carrusel -->
+        <section id="confianza" class="py-16 sm:py-24 bg-gray-800 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 animated-element">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-red-500">
+                        ¿Por Qué Elegirnos?
+                    </h2>
+                    <p class="mt-4 text-xl text-gray-300">
+                        No somos un técnico más, somos su equipo de apoyo.
+                    </p>
+                </div>
+
+                <!-- Tarjetas de Autoridad -->
+                <div class="grid md:grid-cols-3 gap-8 mb-16">
+                    <!-- Autoridad 1 -->
+                    <div class="flex flex-col items-center text-center bg-gray-700 p-6 rounded-xl shadow-xl border-b-4 border-blue-400 animated-element delay-100">
+                        <i data-lucide="check-circle" class="w-10 h-10 text-blue-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Garantía Escrita</h3>
+                        <p class="text-gray-300">Ofrecemos hasta 90 días de garantía en mano de obra. Seguridad total.</p>
+                    </div>
+                    <!-- Autoridad 2 -->
+                    <div class="flex flex-col items-center text-center bg-gray-700 p-6 rounded-xl shadow-xl border-b-4 border-red-500 animated-element delay-200">
+                        <i data-lucide="clock" class="w-10 h-10 text-red-500 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Disponibilidad 7 Días</h3>
+                        <p class="text-gray-300">Las emergencias no esperan, nosotros tampoco. Le atendemos el fin de semana.</p>
+                    </div>
+                    <!-- Autoridad 3 -->
+                    <div class="flex flex-col items-center text-center bg-gray-700 p-6 rounded-xl shadow-xl border-b-4 border-yellow-400 animated-element delay-300">
+                        <i data-lucide="award" class="w-10 h-10 text-yellow-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">10+ Años de Experiencia</h3>
+                        <p class="text-gray-300">Técnicos certificados que han visto y solucionado todos los problemas.</p>
+                    </div>
+                </div>
+
+                <!-- Carrusel de Testimonios -->
+                <div class="animated-element delay-400">
+                    <h3 class="text-2xl font-bold mb-8 text-center">Nuestros Clientes lo Confirman</h3>
+                    <div class="testimonials-carousel-container relative max-w-2xl mx-auto">
+                        
+                        <!-- Pista del Carrusel de Testimonios (Generada por JS) -->
+                        <div id="testimonial-track" class="testimonial-track">
+                            <!-- Testimonial Items will be injected here by JS -->
+                        </div>
+
+                        <!-- Dots para Testimonios -->
+                        <div id="testimonial-dots" class="flex justify-center mt-6 space-x-2"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de Contacto y Formulario WhatsApp -->
+        <section id="contacto" class="py-16 sm:py-24 bg-gray-100">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12 animated-element">
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900">
+                        1er Paso: Cuéntanos su problema
+                    </h2>
+                    <p class="mt-4 text-xl text-gray-600">
+                        Llene los datos. Su solicitud se enviará a nuestro WhatsApp para una respuesta inmediata.
+                    </p>
+                </div>
+
+                <div class="bg-white p-6 sm:p-10 rounded-xl shadow-2xl max-w-xl mx-auto border-t-8 border-red-500 animated-element delay-200">
+                    <form id="whatsapp-form" class="space-y-6">
+                        <div class="animated-element delay-300">
+                            <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
+                            <input type="text" id="nombre" name="nombre" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500" placeholder="Su nombre" required>
+                        </div>
+                        <div class="animated-element delay-400">
+                            <label for="ubicacion" class="block text-sm font-medium text-gray-700">Municipio/Dirección</label>
+                            <input type="text" id="ubicacion" name="ubicacion" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500" placeholder="Ej: El Centro, Dosquebradas" required>
+                        </div>
+                        <div class="animated-element delay-500">
+                            <label for="servicio" class="block text-sm font-medium text-gray-700">Describa el Problema</label>
+                            <textarea id="servicio" name="servicio" rows="3" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500" placeholder="Ej: Mi nevera hace ruido y no congela la parte de arriba." required></textarea>
+                        </div>
+                        <div class="flex items-start animated-element delay-600">
+                            <div class="flex items-center h-5">
+                                <input id="urgencia" name="urgencia" type="checkbox" class="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="urgencia" class="font-bold text-red-600">Marcar como URGENTE</label>
+                                <p class="text-gray-500">Necesito que me contacten inmediatamente.</p>
+                            </div>
+                        </div>
+                        <button type="submit" class="w-full flex items-center justify-center px-8 py-4 border border-transparent text-base font-bold rounded-full shadow-sm text-white bg-green-500 hover:bg-green-600 transition duration-300 uppercase tracking-wider transform hover:scale-[1.01] animated-element delay-700">
+                            <i data-lucide="whatsapp" class="w-5 h-5 mr-3"></i>
+                            Solicitar Ya
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de Información del Servicio (Inicialmente oculto) -->
+    <div id="service-modal" class="modal fixed inset-0 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-3xl max-w-lg w-full p-6 sm:p-8 relative transform transition-all duration-300 scale-95 opacity-0" id="modal-content-area">
+            <button id="close-modal" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <h3 id="modal-title" class="text-2xl font-extrabold text-red-500 mb-4"></h3>
+            <div class="h-40 bg-gray-200 rounded-lg mb-4 overflow-hidden" id="modal-image-area">
+                <img id="modal-image" src="" alt="Imagen del servicio" class="w-full h-full object-cover">
+            </div>
+            <p id="modal-description" class="text-gray-700 mb-6"></p>
+            <a href="#contacto" id="modal-cta-button" onclick="closeModal()" class="block text-center px-6 py-3 border border-transparent text-base font-semibold rounded-full text-white bg-red-500 hover:bg-red-600 transition duration-300">
+                ¡Necesito el Servicio Ahora!
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Footer y Redes Sociales -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg font-semibold mb-4 animated-element">
+                <span class="text-red-500">SERVI</span>ELECTRONIC
+            </p>
+            <p class="text-sm text-gray-400 mb-6 animated-element delay-100">
+                Líderes en reparación a domicilio en Pereira, Dosquebradas y Cartago.
+            </p>
+
+            <!-- Íconos de Redes Sociales -->
+            <div class="flex justify-center space-x-6 animated-element delay-200">
+                <a href="#" target="_blank" class="text-gray-400 hover:text-red-500 transition duration-300">
+                    <i data-lucide="facebook" class="w-7 h-7"></i>
+                </a>
+                <a href="#" target="_blank" class="text-gray-400 hover:text-red-500 transition duration-300">
+                    <i data-lucide="instagram" class="w-7 h-7"></i>
+                </a>
+                <a href="#" target="_blank" class="text-gray-400 hover:text-red-500 transition duration-300">
+                    <i data-lucide="tiktok" class="w-7 h-7"></i>
+                </a>
+            </div>
+
+            <p class="mt-8 text-xs text-gray-500 animated-element delay-300">
+                &copy; 2025 SERVIELECTRONIC. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Botón de WhatsApp Flotante -->
+    <a href="https://wa.me/573135996097?text=Hola,%20tengo%20una%20emergencia%20con%20mi%20electrodoméstico." target="_blank" class="whatsapp-float">
+        <i data-lucide="message-square" class="w-7 h-7"></i>
+    </a>
+
+    <script>
+        // Datos de Servicios para el Carrusel y Modal
+        const serviceData = {
+            nevera: {
+                title: "Reparación de Neveras y Nevecones a Domicilio",
+                description: "Solucionamos fallas de enfriamiento, fugas de gas, problemas con el dispensador de hielo y ruidos extraños. Nuestro servicio incluye diagnóstico completo y piezas originales, garantizando que sus alimentos se mantengan frescos.",
+                image: "assets/img/nevera.webp"
+            },
+            lavadora: {
+                title: "Solución Rápida para Lavadoras y Secadoras",
+                description: "Si su lavadora no centrifuga, no drena el agua o tiene problemas con el motor. Nuestros técnicos especializados diagnostican y reparan rápidamente la falla. ¡No deje acumular la ropa sucia por fallas!",
+                image: "assets/img/lavadora.webp"
+            },
+            calentador: {
+                title: "Reparación y Mantenimiento de Calentadores",
+                description: "Expertos en calentadores a gas y eléctricos. Solución a fugas, problemas de encendido y regulación de temperatura. Garantice agua caliente segura en su hogar con nuestro servicio de alta calidad.",
+                image: "assets/img/calentador.jpg"
+            },
+            aire: {
+                title: "Instalación y Reparación de Aire Acondicionado",
+                description: "Servicio completo para splits, mini splits y sistemas centrales. Mantenimiento preventivo para asegurar el máximo rendimiento, reducir el consumo eléctrico y mejorar la calidad del aire de su espacio.",
+                image: "assets/img/aire.avif"
+            },
+            horno: {
+                title: "Reparación de Hornos y Estufas a Gas y Eléctricas",
+                description: "Si su horno no calienta uniformemente o su estufa tiene fallas en el encendido. Deje su cocina en manos de expertos para reparaciones seguras y duraderas, usando solo repuestos certificados.",
+                image: "assets/img/horno.jpg"
+            }
+        };
+
+        // Datos de Testimonios para el Carrusel
+        const testimonialsData = [
+            { name: "Alejandro G.", city: "Pereira", text: "Llamé a las 6 pm por mi lavadora y al día siguiente la tenía funcionando. Puntualidad, honestidad y el precio fue justo. Los recomiendo a ojos cerrados.", rating: 5, image: "https://placehold.co/150x150/f0e68c/000000?text=Alejandro" },
+            { name: "Marta R.", city: "Dosquebradas", text: "El técnico fue muy amable y me explicó exactamente lo que pasaba con mi calentador. Solucionó la fuga de gas en menos de una hora. ¡Excelente servicio!", rating: 5, image: "https://placehold.co/150x150/87cefa/000000?text=Marta" },
+            { name: "Carlos M.", city: "Cartago", text: "Mi nevera dejó de enfriar en plena ola de calor. Su respuesta fue inmediata y la reparación duradera. Se nota la experiencia. ¡Ya son mis técnicos de confianza!", rating: 5, image: "https://placehold.co/150x150/a9a9a9/000000?text=Carlos" },
+            { name: "Sofia P.", city: "Pereira", text: "Me dieron garantía escrita por el arreglo de mi secadora. Es la tranquilidad que uno busca. Muy profesionales y transparentes con los costos.", rating: 5, image: "https://placehold.co/150x150/ffb6c1/000000?text=Sofia" },
+            { name: "Julio C.", city: "Armenia", text: "Servicio a domicilio rápido y eficiente. Tenía un problema con el aire acondicionado y en minutos lo resolvió. ¡Los llamaré siempre!", rating: 5, image: "https://placehold.co/150x150/daa520/000000?text=Julio" },
+        ];
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            initNavbar();
+            initCarousel(); // Carrusel de Servicios
+            initTestimonialsCarousel(); // Carrusel de Testimonios
+            initWhatsAppForm();
+            initModal();
+            initAnimations(); // Inicializa las animaciones al scroll
+            initTypewriter(); // Inicializa el efecto de máquina de escribir
+        });
+
+        // 1. Lógica del Navbar (Menú Hamburguesa)
+        function initNavbar() {
+            const menuButton = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+
+            menuButton.addEventListener('click', () => {
+                const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+                menuButton.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+
+                const iconName = !isExpanded ? 'x' : 'menu';
+                menuIcon.setAttribute('data-lucide', iconName);
+                lucide.createIcons();
+            });
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    menuIcon.setAttribute('data-lucide', 'menu');
+                    menuButton.setAttribute('aria-expanded', 'false');
+                    lucide.createIcons();
+                });
+            });
+        }
+
+        // 2. Lógica del Carrusel de Servicios
+        function initCarousel() {
+            const track = document.getElementById('carousel-track');
+            const items = Array.from(track.children);
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const dotsContainer = document.getElementById('dots');
+
+            let currentIndex = 0;
+            let itemsPerView = 1;
+            let autoScrollInterval;
+            
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let itemWidth = 0;
+            const totalItems = items.length;
+
+            const updateItemsPerView = () => {
+                if (window.innerWidth >= 1024) { itemsPerView = 3; } 
+                else if (window.innerWidth >= 640) { itemsPerView = 2; } 
+                else { itemsPerView = 1; }
+
+                itemWidth = track.clientWidth / itemsPerView;
+
+                items.forEach(item => {
+                    item.style.flex = `0 0 ${100 / itemsPerView}%`;
+                });
+
+                generateDots();
+                moveToSlide(currentIndex, false);
+            };
+
+            const generateDots = () => {
+                dotsContainer.innerHTML = '';
+                const maxIndex = totalItems - itemsPerView;
+                if (maxIndex < 0) return; 
+
+                for (let i = 0; i <= maxIndex; i++) {
+                    const dot = document.createElement('button');
+                    dot.classList.add('w-3', 'h-3', 'rounded-full', 'bg-gray-400', 'transition', 'hover:bg-red-500', 'mx-1');
+                    if (i === currentIndex) dot.classList.add('bg-red-500');
+                    dot.addEventListener('click', () => {
+                        currentIndex = i;
+                        moveToSlide(currentIndex, true);
+                        resetAutoScroll();
+                    });
+                    dotsContainer.appendChild(dot);
+                }
+            };
+
+            const updateDots = () => {
+                dotsContainer.querySelectorAll('button').forEach((dot, index) => {
+                    dot.classList.remove('bg-red-500');
+                    dot.classList.add('bg-gray-400');
+                    if (index === currentIndex) dot.classList.add('bg-red-500');
+                });
+            };
+
+            const moveToSlide = (index, animate = true) => {
+                const maxIndex = totalItems - itemsPerView;
+                if (index > maxIndex) index = maxIndex;
+                if (index < 0) index = 0;
+
+                currentIndex = index;
+                
+                track.style.transition = animate ? 'transform 0.3s ease-in-out' : 'none';
+                track.style.transform = `translateX(${-currentIndex * itemWidth}px)`;
+                
+                updateDots();
+            };
+            
+            prevBtn.addEventListener('click', () => {
+                currentIndex = Math.max(0, currentIndex - 1);
+                moveToSlide(currentIndex, true);
+                resetAutoScroll();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                const maxIndex = totalItems - itemsPerView;
+                currentIndex = Math.min(maxIndex, currentIndex + 1);
+                moveToSlide(currentIndex, true);
+                resetAutoScroll();
+            });
+
+            const getPositionX = (event) => event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+
+            const touchStart = (event) => {
+                startPos = getPositionX(event);
+                isDragging = true;
+                track.style.transition = 'none';
+                prevTranslate = -currentIndex * itemWidth;
+                currentTranslate = prevTranslate;
+                track.classList.add('cursor-grabbing');
+                stopAutoScroll(); // Pausar al empezar el drag
+            };
+
+            const touchMove = (event) => {
+                if (!isDragging) return;
+                const currentPos = getPositionX(event);
+                const diff = currentPos - startPos;
+                currentTranslate = prevTranslate + diff;
+                track.style.transform = `translateX(${currentTranslate}px)`;
+            };
+
+            const touchEnd = () => {
+                if (!isDragging) return;
+                isDragging = false;
+                track.classList.remove('cursor-grabbing');
+                resetAutoScroll(); // Reanudar al terminar el drag
+
+                const movedBy = currentTranslate - prevTranslate;
+                const swipeThreshold = itemWidth * 0.2; 
+
+                if (movedBy < -swipeThreshold) {
+                    nextBtn.click();
+                } else if (movedBy > swipeThreshold) {
+                    prevBtn.click();
+                } else {
+                    moveToSlide(currentIndex, true);
+                }
+            };
+            
+            track.addEventListener('mousedown', touchStart);
+            track.addEventListener('mouseup', touchEnd);
+            track.addEventListener('mouseleave', touchEnd);
+            track.addEventListener('mousemove', touchMove);
+
+            track.addEventListener('touchstart', touchStart);
+            track.addEventListener('touchend', touchEnd);
+            track.addEventListener('touchmove', touchMove);
+
+            const startAutoScroll = () => {
+                stopAutoScroll();
+                const maxIndex = totalItems - itemsPerView;
+                if (maxIndex <= 0) return; // No auto-scroll si no hay espacio
+                
+                autoScrollInterval = setInterval(() => {
+                    currentIndex = (currentIndex < maxIndex) ? currentIndex + 1 : 0;
+                    moveToSlide(currentIndex, true);
+                }, 4000);
+            };
+
+            const stopAutoScroll = () => clearInterval(autoScrollInterval);
+            const resetAutoScroll = () => { stopAutoScroll(); startAutoScroll(); };
+
+            items.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    const rect = track.getBoundingClientRect();
+                    // Solo abrir modal si no estaba draggeando
+                    if (Math.abs(currentTranslate - prevTranslate) < 5 || currentTranslate === prevTranslate) {
+                        const serviceId = item.dataset.serviceId;
+                        const data = serviceData[serviceId];
+                        if (data) openModal(data);
+                    }
+                });
+            });
+            
+            updateItemsPerView();
+            window.addEventListener('resize', updateItemsPerView);
+            startAutoScroll();
+        }
+
+        // 3. Lógica del Carrusel de Testimonios (Simplificada a 1 por vista)
+        function initTestimonialsCarousel() {
+            const track = document.getElementById('testimonial-track');
+            const dotsContainer = document.getElementById('testimonial-dots');
+            let testimonialIndex = 0;
+            const totalTestimonials = testimonialsData.length;
+            let autoScrollInterval;
+
+            // Generar tarjetas de testimonios en HTML
+            const generateTestimonials = () => {
+                testimonialsData.forEach((t, index) => {
+                    const stars = Array(t.rating).fill('<i data-lucide="star" class="w-5 h-5 fill-yellow-400 text-yellow-400"></i>').join('');
+                    const itemHtml = `
+                        <div class="testimonial-item">
+                            <div class="bg-gray-700 p-8 rounded-xl shadow-2xl h-full flex flex-col justify-between">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-16 h-16 rounded-full overflow-hidden mr-4 flex-shrink-0">
+                                        <img src="${t.image}" alt="Foto de ${t.name}" class="object-cover w-full h-full">
+                                    </div>
+                                    <div>
+                                        <p class="text-xl font-semibold text-red-400">${t.name}</p>
+                                        <p class="text-sm text-gray-300">${t.city}</p>
+                                        <div class="flex text-yellow-400 space-x-1">${stars}</div>
+                                    </div>
+                                </div>
+                                <p class="italic text-lg text-gray-200">"${t.text}"</p>
+                            </div>
+                        </div>
+                    `;
+                    track.innerHTML += itemHtml;
+                });
+                lucide.createIcons(); // Vuelve a inicializar íconos
+            };
+
+            // Lógica de Movimiento y Dots
+            const moveToTestimonial = (index, animate = true) => {
+                testimonialIndex = (index + totalTestimonials) % totalTestimonials;
+                
+                track.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
+                track.style.transform = `translateX(-${testimonialIndex * 100}%)`;
+                
+                updateTestimonialDots();
+            };
+
+            const updateTestimonialDots = () => {
+                dotsContainer.innerHTML = ''; // Limpiar dots
+                for (let i = 0; i < totalTestimonials; i++) {
+                    const dot = document.createElement('button');
+                    dot.classList.add('w-3', 'h-3', 'rounded-full', 'mx-1', 'transition');
+                    dot.classList.add(i === testimonialIndex ? 'bg-red-500' : 'bg-gray-500');
+                    dot.addEventListener('click', () => {
+                        moveToTestimonial(i, true);
+                        resetAutoScroll();
+                    });
+                    dotsContainer.appendChild(dot);
+                }
+            };
+            
+            // Auto-scroll
+            const startAutoScroll = () => {
+                stopAutoScroll();
+                autoScrollInterval = setInterval(() => {
+                    moveToTestimonial(testimonialIndex + 1, true);
+                }, 5000); 
+            };
+            const stopAutoScroll = () => clearInterval(autoScrollInterval);
+            const resetAutoScroll = () => { stopAutoScroll(); startAutoScroll(); };
+
+
+            // Swipe Lógica (simplificada para 1 item por vista)
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+
+            const getPositionX = (event) => event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+
+            const touchStart = (event) => {
+                startPos = getPositionX(event);
+                isDragging = true;
+                track.style.transition = 'none';
+                prevTranslate = -testimonialIndex * track.clientWidth;
+                currentTranslate = prevTranslate;
+                track.classList.add('cursor-grabbing');
+                stopAutoScroll(); 
+            };
+
+            const touchMove = (event) => {
+                if (!isDragging) return;
+                const currentPos = getPositionX(event);
+                const diff = currentPos - startPos;
+                currentTranslate = prevTranslate + diff;
+                track.style.transform = `translateX(${currentTranslate}px)`;
+            };
+
+            const touchEnd = () => {
+                if (!isDragging) return;
+                isDragging = false;
+                track.classList.remove('cursor-grabbing');
+                resetAutoScroll();
+
+                const movedBy = currentTranslate - prevTranslate;
+                const swipeThreshold = track.clientWidth * 0.15; // 15% del ancho
+
+                if (movedBy < -swipeThreshold) {
+                    moveToTestimonial(testimonialIndex + 1, true);
+                } else if (movedBy > swipeThreshold) {
+                    moveToTestimonial(testimonialIndex - 1, true);
+                } else {
+                    moveToTestimonial(testimonialIndex, true); // Volver a la posición
+                }
+            };
+
+            track.addEventListener('mousedown', touchStart);
+            track.addEventListener('mouseup', touchEnd);
+            track.addEventListener('mouseleave', touchEnd);
+            track.addEventListener('mousemove', touchMove);
+
+            track.addEventListener('touchstart', touchStart);
+            track.addEventListener('touchend', touchEnd);
+            track.addEventListener('touchmove', touchMove);
+
+            generateTestimonials();
+            updateTestimonialDots();
+            startAutoScroll();
+        }
+
+
+        // 4. Lógica del Modal (Pop-up de Servicio)
+        const modal = document.getElementById('service-modal');
+        const modalContentArea = document.getElementById('modal-content-area');
+
+        function initModal() {
+            const closeModalBtn = document.getElementById('close-modal');
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+            });
+        }
+
+        function openModal(data) {
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-description').textContent = data.description;
+            document.getElementById('modal-image').src = data.image;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+
+            setTimeout(() => {
+                modalContentArea.classList.remove('scale-95', 'opacity-0');
+                modalContentArea.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalContentArea.classList.remove('scale-100', 'opacity-100');
+            modalContentArea.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }, 300); 
+        }
+
+        // 5. Lógica del Formulario a WhatsApp
+        function initWhatsAppForm() {
+            const form = document.getElementById('whatsapp-form');
+            const whatsappNumber = '573135996097'; 
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const nombre = document.getElementById('nombre').value;
+                const ubicacion = document.getElementById('ubicacion').value;
+                const servicio = document.getElementById('servicio').value;
+                const urgencia = document.getElementById('urgencia').checked ? '*SÍ (URGENTE)*' : 'No';
+
+                let message = `*SOLICITUD DE SERVICIO TÉCNICO*%0A%0A`;
+                message += `*Nombre:* ${encodeURIComponent(nombre)}%0A`;
+                message += `*Ubicación:* ${encodeURIComponent(ubicacion)}%0A`;
+                message += `*Urgencia:* ${encodeURIComponent(urgencia)}%0A`;
+                message += `*Problema/Servicio:* ${encodeURIComponent(servicio)}%0A%0A`;
+
+                const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+                window.open(whatsappUrl, '_blank');
+            });
+        }
+
+        // 6. Lógica de Animaciones al Scroll (Intersection Observer)
+        function initAnimations() {
+            const elements = document.querySelectorAll('.animated-element');
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        observer.unobserve(entry.target); 
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1 
+            });
+
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+        
+        // 7. Lógica de la Máquina de Escribir para el Título
+        function initTypewriter() {
+            const words = [
+                'neveras',
+                'lavadoras',
+                'calentadores',
+                'aires',
+                'hornos',
+            ];
+            const textElement = document.getElementById('dynamic-text');
+            
+            let wordIndex = 0;
+            // Empieza borrando el texto inicial "electrodoméstico" que está en el HTML
+            let charIndex = textElement.textContent.length; 
+            let isDeleting = true; 
+            
+            const TYPING_SPEED = 150; 
+            const DELETING_SPEED = 75;
+            const PAUSE_TIME = 1500;
+
+            function typeWriter() {
+                const currentWord = words[wordIndex % words.length];
+
+                if (isDeleting) {
+                    charIndex--;
+                    textElement.textContent = currentWord.substring(0, charIndex);
+                    textElement.classList.add('typing-cursor');
+
+                    if (charIndex <= 0) {
+                        isDeleting = false;
+                        wordIndex++; 
+                        setTimeout(typeWriter, PAUSE_TIME);
+                        return;
+                    }
+
+                    setTimeout(typeWriter, DELETING_SPEED);
+
+                } else {
+                    charIndex++;
+                    textElement.textContent = currentWord.substring(0, charIndex);
+                    textElement.classList.add('typing-cursor');
+
+                    if (charIndex === currentWord.length) {
+                        isDeleting = true;
+                        setTimeout(() => {
+                            textElement.classList.remove('typing-cursor'); 
+                            setTimeout(typeWriter, PAUSE_TIME);
+                        }, PAUSE_TIME / 2);
+                        return;
+                    }
+
+                    setTimeout(typeWriter, TYPING_SPEED);
+                }
+            }
+            // Inicia el proceso de escritura
+            typeWriter(); 
+        }
+    </script>
+</body>
+</html>
